@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ENVO BPO — KKday House Rules &amp; Operational Regulations (Acknowledgement)</title>
+<style>
+  :root{
+    --ink:#12242b; --muted:#5b6b72; --line:#dfe6e9; --bg:#eef3f5;
+    --brand:#0f7a7a; --brand-dk:#0a5c5c; --accent:#1a8fd1;
+    --ok:#0d8a5f; --warn:#b3261e; --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+    color:var(--ink); background:var(--bg); line-height:1.55; font-size:16px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 16px 80px}
+  header.hero{
+    background:linear-gradient(120deg,var(--accent),var(--brand));
+    color:#fff;padding:34px 24px;margin:0 0 22px;
+  }
+  header.hero .inner{max-width:848px;margin:0 auto}
+  header.hero h1{margin:0 0 8px;font-size:1.45rem;line-height:1.32;letter-spacing:.2px}
+  header.hero p{margin:0;opacity:.95;font-size:.95rem}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;margin-bottom:20px}
+  .card > h2{
+    margin:0 0 4px;font-size:.78rem;letter-spacing:1.4px;text-transform:uppercase;
+    color:var(--brand);font-weight:700;
+  }
+  .card > h2 + .sub{margin:0 0 18px;color:var(--muted);font-size:.9rem}
+  .doc h3{margin:22px 0 6px;font-size:1rem;color:var(--brand-dk)}
+  .doc h3:first-child{margin-top:4px}
+  .doc ul{margin:6px 0 6px;padding-left:22px}
+  .doc li{margin:5px 0}
+  .doc p.note{margin:6px 0;color:var(--muted);font-size:.92rem}
+  .memo-meta{background:#f6fafb;border-left:3px solid var(--brand);padding:12px 16px;margin:0 0 6px;font-size:.93rem}
+  .memo-meta div{margin:2px 0}
+  table.t{border-collapse:collapse;width:100%;margin:10px 0 4px;font-size:.92rem}
+  table.t th{background:#12242b;color:#fff;text-align:left;font-weight:600}
+  table.t th,table.t td{border:1px solid #c8d3d7;padding:7px 10px;vertical-align:top}
+  table.t tbody tr:nth-child(even){background:#f7fafb}
+  .scroller{max-height:52vh;overflow-y:auto;border:1px solid var(--line);border-radius:10px;padding:18px 20px;background:#fff}
+  .scroller.read{border-color:#9ed4c4}
+  .readflag{margin-top:10px;font-size:.85rem;color:var(--muted)}
+  .readflag.done{color:var(--ok);font-weight:600}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+  label.f{display:block;font-size:.85rem;font-weight:600;margin:0 0 6px}
+  label.f .req{color:var(--warn)}
+  input[type=text],input[type=email]{
+    width:100%;padding:11px 12px;border:1px solid #c3ced3;border-radius:8px;font-size:1rem;
+    font-family:inherit;background:#fff;color:var(--ink)
+  }
+  input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+  input[readonly]{background:#f2f5f6;color:var(--muted)}
+  .field{margin-bottom:16px}
+  .err{color:var(--warn);font-size:.82rem;margin-top:5px;display:none}
+  .field.bad input{border-color:var(--warn)}
+  .field.bad .err{display:block}
+  .chk{display:flex;gap:12px;align-items:flex-start;padding:14px;border:1px solid var(--line);border-radius:9px;margin-bottom:12px;cursor:pointer;background:#fbfdfd}
+  .chk input{margin-top:3px;width:19px;height:19px;flex:0 0 auto;accent-color:var(--brand)}
+  .chk span{font-size:.94rem}
+  .chk.bad{border-color:var(--warn);background:#fff6f5}
+  .sigbox{border:2px dashed #b6c4ca;border-radius:10px;background:#fff;position:relative;touch-action:none}
+  .sigbox.bad{border-color:var(--warn)}
+  .sigbox canvas{display:block;width:100%;height:190px;border-radius:8px;cursor:crosshair;touch-action:none}
+  .sigline{position:absolute;left:6%;right:6%;bottom:38px;border-bottom:1px solid #cdd8dc;pointer-events:none}
+  .sighint{position:absolute;left:0;right:0;bottom:14px;text-align:center;color:#9aa9af;font-size:.82rem;pointer-events:none}
+  .sigbox.inked .sighint,.sigbox.inked .sigline{display:none}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  button{
+    font-family:inherit;font-size:.95rem;font-weight:600;border-radius:8px;padding:11px 20px;
+    border:1px solid transparent;cursor:pointer
+  }
+  button.ghost{background:#fff;border-color:#c3ced3;color:var(--ink)}
+  button.ghost:hover{background:#f2f6f7}
+  button.primary{background:var(--brand);color:#fff;font-size:1.02rem;padding:15px 30px}
+  button.primary:hover{background:var(--brand-dk)}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .status{margin-top:16px;padding:14px 16px;border-radius:9px;font-size:.93rem;display:none}
+  .status.show{display:block}
+  .status.ok{background:#e8f7f0;border:1px solid #9ed4c4;color:#0a5e42}
+  .status.bad{background:#fdecea;border:1px solid #f0b3ae;color:#8c1d18}
+  .status.info{background:#eaf4fb;border:1px solid #a9cfe8;color:#0d4f75}
+  .status ol{margin:8px 0 0;padding-left:20px}
+  .status li{margin:4px 0}
+  .status code{background:rgba(0,0,0,.06);padding:1px 6px;border-radius:4px;font-size:.9em}
+  footer{color:var(--muted);font-size:.82rem;text-align:center;padding:8px 0 0}
+  @media print{ body{background:#fff} .noprint{display:none!important} .scroller{max-height:none;overflow:visible;border:0;padding:0} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="inner">
+    <h1>ENVO BPO SERVICES SDN BHD<br>House Rules &amp; Operational Regulations (KKday)</h1>
+    <p>Digital acknowledgement &amp; signature — effective 11 May 2026</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2>Step 1 — Read the document</h2>
+    <p class="sub">Scroll to the bottom of the box below. The full memo is reproduced here.</p>
+    <div class="scroller" id="scroller">
+      <div class="doc" id="doc"></div>
+    </div>
+    <div class="readflag" id="readflag">Please scroll to the end of the document.</div>
+  </div>
+
+  <div class="card">
+    <h2>Step 2 — Your details</h2>
+    <p class="sub">Enter your details exactly as they appear on your NRIC.</p>
+    <div class="grid">
+      <div class="field" id="f-name">
+        <label class="f" for="name">Full Name (as per NRIC) <span class="req">*</span></label>
+        <input type="text" id="name" autocomplete="name" placeholder="e.g. Nurul Aisyah binti Rahman">
+        <div class="err">Please enter your full name as per NRIC.</div>
+      </div>
+      <div class="field" id="f-nric">
+        <label class="f" for="nric">NRIC Number <span class="req">*</span></label>
+        <input type="text" id="nric" inputmode="numeric" placeholder="e.g. 990101-14-5566">
+        <div class="err">Please enter a valid 12-digit NRIC number.</div>
+      </div>
+      <div class="field" id="f-email">
+        <label class="f" for="email">Work / Personal Email <span class="req">*</span></label>
+        <input type="email" id="email" autocomplete="email" placeholder="name@envobpo.com">
+        <div class="err">Please enter a valid email address.</div>
+      </div>
+      <div class="field">
+        <label class="f" for="today">Date of Acknowledgement</label>
+        <input type="text" id="today" readonly>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Step 3 — Declaration</h2>
+    <p class="sub">Both declarations must be accepted.</p>
+    <label class="chk" id="c1w"><input type="checkbox" id="c1"><span>I have read and understood this KKday House Rules &amp; Operational Regulations.</span></label>
+    <label class="chk" id="c2w"><input type="checkbox" id="c2"><span>I understand that this digital acknowledgement carries the same weight as a physical signature.</span></label>
+  </div>
+
+  <div class="card">
+    <h2>Step 4 — Sign</h2>
+    <p class="sub">Draw your signature in the box using your mouse, or your finger on a phone or tablet.</p>
+    <div class="sigbox" id="sigbox">
+      <canvas id="pad"></canvas>
+      <div class="sigline"></div>
+      <div class="sighint">Sign here</div>
+    </div>
+    <div class="row noprint">
+      <button type="button" class="ghost" id="undo">Undo last stroke</button>
+      <button type="button" class="ghost" id="clear">Clear signature</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Step 5 — Submit</h2>
+    <p class="sub">This creates a signed PDF on your device, then sends a copy to HR and to you.</p>
+    <div class="row noprint">
+      <button type="button" class="primary" id="go">Generate my signed PDF</button>
+      <button type="button" class="ghost" id="share" hidden>Share / Send from phone</button>
+      <button type="button" class="ghost" id="mail" disabled>Open email to HR</button>
+    </div>
+    <div class="status" id="status"></div>
+  </div>
+
+  <footer>
+    ENVO BPO Services Sdn Bhd &middot; Confidential &middot; This acknowledgement is retained by the HR Department.
+  </footer>
+</div>
+
+<script>
+/* ===========================================================================
+   MiniPDF — a tiny, dependency-free PDF writer (Helvetica + JPEG images).
+   Coordinates are top-left origin, points (1/72 inch). A4 = 595.28 x 841.89.
+   =========================================================================== */
+var MiniPDF = (function(){
+
+  var W_REG = [278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,
+    556,556,556,556,556,556,556,556,556,556,278,278,584,584,584,556,1015,
+    667,667,722,722,667,611,778,722,278,500,667,556,833,722,778,667,778,722,667,611,722,667,944,667,667,611,
+    278,278,278,469,556,333,
+    556,556,500,556,556,278,556,556,222,222,500,222,833,556,556,556,556,333,500,278,556,500,722,500,500,500,
+    334,260,334,584];
+
+  var W_BLD = [278,333,474,556,556,889,722,238,333,333,389,584,278,333,278,278,
+    556,556,556,556,556,556,556,556,556,556,333,333,584,584,584,611,975,
+    722,722,722,722,667,611,778,722,278,556,722,611,833,722,778,667,778,722,667,611,722,667,944,667,667,611,
+    333,278,333,584,556,333,
+    556,611,556,611,556,333,611,611,278,278,556,278,889,611,611,611,611,389,556,333,611,556,778,556,556,500,
+    389,280,389,584];
+
+  /* extra WinAnsi codes we actually use */
+  var HI_REG = {0x85:1000,0x91:222,0x92:222,0x93:333,0x94:333,0x95:350,0x96:556,0x97:1000};
+  var HI_BLD = {0x85:1000,0x91:278,0x92:278,0x93:500,0x94:500,0x95:350,0x96:556,0x97:1000};
+
+  var UNI = {8211:0x96,8212:0x97,8226:0x95,8216:0x91,8217:0x92,8220:0x93,8221:0x94,8230:0x85,
+             160:32,215:0x78,8722:45,8203:32};
+
+  function toBytes(s){
+    var out = "";
+    for(var i=0;i<s.length;i++){
+      var c = s.charCodeAt(i);
+      if(c < 32){ out += " "; }
+      else if(c < 256){ out += String.fromCharCode(c); }
+      else if(UNI[c] !== undefined){ out += String.fromCharCode(UNI[c]); }
+      else { out += "?"; }
+    }
+    return out;
+  }
+  function charW(code, bold){
+    if(code >= 32 && code <= 126) return (bold ? W_BLD : W_REG)[code-32];
+    var t = bold ? HI_BLD : HI_REG;
+    return t[code] !== undefined ? t[code] : (bold ? 556 : 556);
+  }
+  function measure(str, size, bold){
+    var b = toBytes(str), t = 0;
+    for(var i=0;i<b.length;i++) t += charW(b.charCodeAt(i), bold);
+    return t / 1000 * size;
+  }
+  function esc(str){
+    return toBytes(str).replace(/\\/g,"\\\\").replace(/\(/g,"\\(").replace(/\)/g,"\\)");
+  }
+  function wrap(str, size, bold, maxW){
+    var words = String(str).split(/\s+/), lines = [], line = "";
+    for(var i=0;i<words.length;i++){
+      var w = words[i];
+      var test = line ? line + " " + w : w;
+      if(measure(test, size, bold) <= maxW){ line = test; continue; }
+      if(line){ lines.push(line); line = ""; }
+      if(measure(w, size, bold) <= maxW){ line = w; continue; }
+      var chunk = "";
+      for(var k=0;k<w.length;k++){
+        if(measure(chunk + w[k], size, bold) > maxW){ lines.push(chunk); chunk = w[k]; }
+        else chunk += w[k];
+      }
+      line = chunk;
+    }
+    if(line) lines.push(line);
+    return lines.length ? lines : [""];
+  }
+
+  function Doc(pw, ph){
+    this.pw = pw || 595.28;
+    this.ph = ph || 841.89;
+    this.pages = [];
+    this.images = [];
+    this.cur = null;
+    this.addPage();
+  }
+  Doc.prototype.addPage = function(){ this.cur = { ops: [] }; this.pages.push(this.cur); return this.cur; };
+  Doc.prototype.pageCount = function(){ return this.pages.length; };
+  Doc.prototype.usePage = function(i){ this.cur = this.pages[i]; };
+
+  function fmt(n){ return (Math.round(n*100)/100).toString(); }
+
+  Doc.prototype.setFill = function(c){ this.cur.ops.push(fmt(c[0]/255)+" "+fmt(c[1]/255)+" "+fmt(c[2]/255)+" rg"); };
+  Doc.prototype.setStroke = function(c){ this.cur.ops.push(fmt(c[0]/255)+" "+fmt(c[1]/255)+" "+fmt(c[2]/255)+" RG"); };
+
+  /* text: (x, yBaselineFromTop) */
+  Doc.prototype.text = function(str, x, y, o){
+    o = o || {};
+    var size = o.size || 10, bold = !!o.bold, col = o.color || [0,0,0];
+    var w = measure(str, size, bold);
+    if(o.align === "center") x -= w/2;
+    if(o.align === "right")  x -= w;
+    this.setFill(col);
+    this.cur.ops.push("BT /" + (bold ? "F2" : "F1") + " " + fmt(size) + " Tf 1 0 0 1 " +
+                      fmt(x) + " " + fmt(this.ph - y) + " Tm (" + esc(str) + ") Tj ET");
+    return w;
+  };
+  Doc.prototype.rect = function(x, y, w, h, o){
+    o = o || {};
+    var ops = this.cur.ops;
+    if(o.fill) this.setFill(o.fill);
+    if(o.stroke) this.setStroke(o.stroke);
+    ops.push(fmt(o.lineWidth || 0.6) + " w");
+    ops.push(fmt(x)+" "+fmt(this.ph - y - h)+" "+fmt(w)+" "+fmt(h)+" re "+
+             (o.fill && o.stroke ? "B" : o.fill ? "f" : "S"));
+  };
+  Doc.prototype.line = function(x1, y1, x2, y2, o){
+    o = o || {};
+    this.setStroke(o.color || [0,0,0]);
+    this.cur.ops.push(fmt(o.lineWidth || 0.6) + " w " + fmt(x1)+" "+fmt(this.ph-y1)+" m "+
+                      fmt(x2)+" "+fmt(this.ph-y2)+" l S");
+  };
+  /* jpegBin = binary string of JPEG bytes */
+  Doc.prototype.image = function(jpegBin, iw, ih, x, y, dw, dh){
+    this.images.push({ data: jpegBin, w: iw, h: ih });
+    var n = this.images.length;
+    this.cur.ops.push("q " + fmt(dw) + " 0 0 " + fmt(dh) + " " + fmt(x) + " " +
+                      fmt(this.ph - y - dh) + " cm /Im" + n + " Do Q");
+  };
+
+  Doc.prototype.measure = measure;
+  Doc.prototype.wrap = wrap;
+
+  Doc.prototype.build = function(){
+    var self = this;
+    var objs = [];                     // 1-based
+    function add(s){ objs.push(s); return objs.length; }
+
+    var fontReg = add("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>");
+    var fontBld = add("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>");
+
+    var imgIds = [];
+    this.images.forEach(function(im){
+      var dict = "<< /Type /XObject /Subtype /Image /Width " + im.w + " /Height " + im.h +
+                 " /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length " +
+                 im.data.length + " >>\nstream\n" + im.data + "\nendstream";
+      imgIds.push(add(dict));
+    });
+
+    var xobj = "";
+    imgIds.forEach(function(id, i){ xobj += "/Im" + (i+1) + " " + id + " 0 R "; });
+    var res = "<< /Font << /F1 " + fontReg + " 0 R /F2 " + fontBld + " 0 R >>" +
+              (xobj ? " /XObject << " + xobj + ">>" : "") + " >>";
+
+    var pagesId = objs.length + 1 + this.pages.length * 2;   // reserve
+    var kids = [], pageObjIds = [];
+    this.pages.forEach(function(p){
+      var content = p.ops.join("\n");
+      var cid = add("<< /Length " + content.length + " >>\nstream\n" + content + "\nendstream");
+      var pid = add("<< /Type /Page /Parent PAGESREF 0 R /MediaBox [0 0 " + fmt(self.pw) + " " + fmt(self.ph) +
+                    "] /Resources " + res + " /Contents " + cid + " 0 R >>");
+      pageObjIds.push(pid); kids.push(pid);
+    });
+
+    var pagesObj = add("<< /Type /Pages /Count " + kids.length + " /Kids [" +
+                       kids.map(function(k){ return k + " 0 R"; }).join(" ") + "] >>");
+    var catalog  = add("<< /Type /Catalog /Pages " + pagesObj + " 0 R >>");
+
+    /* patch parent refs */
+    pageObjIds.forEach(function(id){ objs[id-1] = objs[id-1].replace("PAGESREF", String(pagesObj)); });
+
+    var out = "%PDF-1.4\n%âãÏÓ\n";
+    var offs = [];
+    for(var i=0;i<objs.length;i++){
+      offs.push(out.length);
+      out += (i+1) + " 0 obj\n" + objs[i] + "\nendobj\n";
+    }
+    var xrefPos = out.length;
+    out += "xref\n0 " + (objs.length+1) + "\n0000000000 65535 f \n";
+    for(var j=0;j<offs.length;j++){
+      out += ("0000000000" + offs[j]).slice(-10) + " 00000 n \n";
+    }
+    out += "trailer\n<< /Size " + (objs.length+1) + " /Root " + catalog + " 0 R >>\nstartxref\n" + xrefPos + "\n%%EOF";
+
+    var bytes = new Uint8Array(out.length);
+    for(var k=0;k<out.length;k++) bytes[k] = out.charCodeAt(k) & 0xff;
+    return bytes;
+  };
+
+  return { Doc: Doc, measure: measure, wrap: wrap };
+})();
+
+</script>
+
+<script>
+/* ============================================================
+   CONFIG — edit these three lines only
+   ============================================================ */
+var HR_EMAIL  = "richard.ranjit@envobpo.com";
+var DOC_TITLE = "KKday House Rules & Operational Regulations";
+var DOC_REF   = "ENVO/HR/KKDAY/HR-OR/2026-05-11";
+
+/* ============================================================
+   DOCUMENT CONTENT — single source of truth for screen + PDF
+   ============================================================ */
+var MEMO = [
+  {t:"meta", rows:[
+    ["Date",    "11 May 2026"],
+    ["To",      "KKday Staff"],
+    ["From",    "HR Department"],
+    ["Subject", "HOUSE RULES & OPERATIONAL REGULATIONS"]
+  ]},
+  {t:"h", x:"1. Training Requirement"},
+  {t:"ul", x:["You must complete the training period (12 May 2026 - 29 May 2026), including all assessments."]},
+
+  {t:"h", x:"2. Minimum Service Commitment (6 Months)"},
+  {t:"ul", x:["After finishing training, you are expected to work at least 6 months."]},
+
+  {t:"h", x:"3. If You Leave Early (Repayment Applies)"},
+  {t:"ul", x:[
+    "In the event that an employee voluntarily resigns or is terminated due to misconduct before completing the minimum service period, the Company reserves the right to recover training costs on a prorated basis.",
+    "For the purpose of this clause, the training cost shall be deemed as equivalent to one (1) month of the employee's basic salary, representing a reasonable pre-estimate of the actual costs incurred by the Company, including but not limited to training delivery, supervision, system access, and operational support during the non-productive training period."
+  ]},
+  {t:"p", x:"Repayment Structure (Prorated)"},
+  {t:"table", head:["When You Leave","Amount to Repay"], w:[0.5,0.5], rows:[
+    ["0 - 2 months","100%"],["3 - 4 months","50%"],["5 - 6 months","25%"],["After 6 months","RM0"]
+  ]},
+
+  {t:"h", x:"4. How Payment is Collected"},
+  {t:"ul", x:[
+    "The Company may deduct the repayment amount from the employee's final salary, subject to applicable laws and with the employee's consent.",
+    "If the final salary is insufficient to cover the amount due, the employee shall remain liable to pay the outstanding balance, which shall be recoverable as a debt owed to the Company."
+  ]},
+
+  {t:"h", x:"5. Data Security & System Integrity"},
+  {t:"ul", x:[
+    "Zero Tolerance for Data Extraction: Staff are strictly prohibited from extracting customer databases or relevant info via recording (audio/visual), photocopying, or wireless transmission."
+  ]},
+
+  {t:"h", x:"6. Workplace Conduct & Workspace Standards"},
+  {t:"ul", x:[
+    "Punctuality: Punctuality is critical. Disciplinary action will be taken against any staff member who is late three (3) times within a calendar month.",
+    "Clean Desk Policy: Personal belongings are not permitted at workstations and must be always stored in designated lockers.",
+    "Bias-Free Service: All staff are required to handle every customer request - regardless of complexity - with professionalism and impartiality. Any form of neglect or dereliction of duty may result in removal from the project or termination."
+  ]},
+
+  {t:"h", x:"7. Key Performance Index (KPI) for KKday Project"},
+  {t:"p", x:"These KPI are based on Daily KPI which will need to be met by all staff."},
+  {t:"ul", x:[
+    "Week 1 - 4: KPI target of 60",
+    "Week 5 - 10: KPI target of 75",
+    "From Week 10 onwards: KPI target of 90",
+    "From 6 months onwards: KPI target of 110"
+  ]},
+
+  {t:"h", x:"8. Non-Achievement of Monthly Targets"},
+  {t:"p", x:"Please take note that if staff are unable to meet all the above requirements based on the monthly target, the following applies:"},
+  {t:"table", head:["Instances","Action(s)"], w:[0.28,0.72], rows:[
+    ["First","Coaching / Counselling conducted"],
+    ["Second","Performance Improvement Plan + First Warning Letter issued"],
+    ["Third","Second / Final Warning will be issued"],
+    ["Fourth","Termination"]
+  ]},
+
+  {t:"h", x:"9. Monetary Loss Accountability"},
+  {t:"p", x:"Staff are expected to perform requests with 100% accuracy. Financial losses resulting from neglect or deviation from caller instructions will be handled as follows:"},
+  {t:"ul", x:[
+    "First Instance: 50% operational loss recovery and a warning letter.",
+    "Second Instance: 100% operational loss recovery and termination."
+  ]},
+  {t:"p", x:"Penalty Criteria - please refer to the definitions and standards below:"},
+  {t:"table", head:["Category","Definition"], w:[0.3,0.7], rows:[
+    ["Customer Complaints","Complaints arising from situations where Party B's outsourced personnel used inappropriate language or caused disputes with customers during service delivery."],
+    ["Process Errors","Errors caused by Party B's outsourced personnel failing to follow the established work procedures (SOP) when handling tasks."],
+    ["Compensation for Loss","Cases where Party B's outsourced personnel provided incorrect information during service delivery, and even after explanation and clarification to the customer, the issue could not be resolved, resulting in the need to compensate the customer."],
+    ["Failure to Meet SLA / KPI","Failure to achieve SLA or KPI targets, and despite multiple meetings and improvement requests, there is still no significant improvement."]
+  ]}
+];
+
+var DECLARATIONS = [
+  "I have read and understood this KKday House Rules & Operational Regulations.",
+  "I understand that this digital acknowledgement carries the same weight as a physical signature."
+];
+
+/* ============================================================
+   RENDER TO SCREEN
+   ============================================================ */
+(function render(){
+  var esc = function(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); };
+  var h = "";
+  MEMO.forEach(function(b){
+    if(b.t==="meta"){
+      h += '<div class="memo-meta">';
+      b.rows.forEach(function(r){ h += "<div><b>"+esc(r[0])+":</b> "+esc(r[1])+"</div>"; });
+      h += "</div>";
+    } else if(b.t==="h"){ h += "<h3>"+esc(b.x)+"</h3>"; }
+    else if(b.t==="p"){ h += '<p class="note">'+esc(b.x)+"</p>"; }
+    else if(b.t==="ul"){ h += "<ul>"+b.x.map(function(i){return "<li>"+esc(i)+"</li>";}).join("")+"</ul>"; }
+    else if(b.t==="table"){
+      h += '<table class="t"><thead><tr>'+b.head.map(function(c){return "<th>"+esc(c)+"</th>";}).join("")+"</tr></thead><tbody>";
+      b.rows.forEach(function(r){ h += "<tr>"+r.map(function(c){return "<td>"+esc(c)+"</td>";}).join("")+"</tr>"; });
+      h += "</tbody></table>";
+    }
+  });
+  document.getElementById("doc").innerHTML = h;
+})();
+
+var NOW_D = new Date();
+function fmtDate(d){
+  var m=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  return d.getDate()+" "+m[d.getMonth()]+" "+d.getFullYear();
+}
+document.getElementById("today").value = fmtDate(NOW_D);
+
+/* scroll-to-end tracking */
+var scroller = document.getElementById("scroller"), readflag = document.getElementById("readflag"), hasRead = false;
+function checkRead(){
+  if(hasRead) return;
+  if(scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 40){
+    hasRead = true;
+    scroller.classList.add("read");
+    readflag.classList.add("done");
+    readflag.textContent = "✓ You have scrolled through the full document.";
+  }
+}
+scroller.addEventListener("scroll", checkRead);
+setTimeout(checkRead, 400);
+
+/* ============================================================
+   SIGNATURE PAD
+   ============================================================ */
+var box = document.getElementById("sigbox");
+var pad = document.getElementById("pad");
+var ctx = pad.getContext("2d");
+var strokes = [], cur = null, drawing = false, dpr = Math.max(1, window.devicePixelRatio || 1);
+
+function sizePad(){
+  var r = pad.getBoundingClientRect();
+  pad.width  = Math.max(1, Math.round(r.width  * dpr));
+  pad.height = Math.max(1, Math.round(r.height * dpr));
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  redraw();
+}
+function redraw(){
+  ctx.save();
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0,0,pad.width,pad.height);
+  ctx.restore();
+  ctx.lineWidth = 2.4; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.strokeStyle = "#0b1c22";
+  strokes.forEach(function(s){
+    if(s.length < 2){
+      if(s.length===1){ ctx.beginPath(); ctx.arc(s[0].x, s[0].y, 1.3, 0, Math.PI*2); ctx.fillStyle="#0b1c22"; ctx.fill(); }
+      return;
+    }
+    ctx.beginPath(); ctx.moveTo(s[0].x, s[0].y);
+    for(var i=1;i<s.length;i++){
+      var mx = (s[i-1].x + s[i].x)/2, my = (s[i-1].y + s[i].y)/2;
+      ctx.quadraticCurveTo(s[i-1].x, s[i-1].y, mx, my);
+    }
+    ctx.lineTo(s[s.length-1].x, s[s.length-1].y);
+    ctx.stroke();
+  });
+  box.classList.toggle("inked", strokes.length > 0);
+}
+function pos(e){
+  var r = pad.getBoundingClientRect();
+  var p = (e.touches && e.touches[0]) ? e.touches[0] : e;
+  return { x: p.clientX - r.left, y: p.clientY - r.top };
+}
+function down(e){ e.preventDefault(); drawing = true; cur = [pos(e)]; strokes.push(cur); box.classList.remove("bad"); redraw(); }
+function move(e){ if(!drawing) return; e.preventDefault(); cur.push(pos(e)); redraw(); }
+function up(){ drawing = false; cur = null; }
+
+pad.addEventListener("mousedown", down);
+window.addEventListener("mousemove", move);
+window.addEventListener("mouseup", up);
+pad.addEventListener("touchstart", down, {passive:false});
+pad.addEventListener("touchmove", move, {passive:false});
+window.addEventListener("touchend", up);
+
+document.getElementById("clear").onclick = function(){ strokes = []; redraw(); };
+document.getElementById("undo").onclick  = function(){ strokes.pop(); redraw(); };
+window.addEventListener("resize", function(){ sizePad(); });
+sizePad();
+
+function signatureInked(){
+  var pts = 0; strokes.forEach(function(s){ pts += s.length; });
+  return strokes.length > 0 && pts >= 8;
+}
+
+/* ============================================================
+   VALIDATION
+   ============================================================ */
+function normNric(v){ return String(v||"").replace(/[^0-9]/g,""); }
+function prettyNric(v){
+  var d = normNric(v);
+  return d.length===12 ? d.slice(0,6)+"-"+d.slice(6,8)+"-"+d.slice(8) : String(v||"").trim();
+}
+document.getElementById("nric").addEventListener("blur", function(){
+  if(normNric(this.value).length===12) this.value = prettyNric(this.value);
+});
+function setBad(id, bad){ document.getElementById(id).classList.toggle("bad", !!bad); }
+
+function validate(){
+  var problems = [];
+  var name  = document.getElementById("name").value.trim();
+  var nric  = normNric(document.getElementById("nric").value);
+  var email = document.getElementById("email").value.trim();
+  var c1 = document.getElementById("c1").checked, c2 = document.getElementById("c2").checked;
+
+  var badName = name.length < 3;  setBad("f-name", badName);  if(badName) problems.push("your full name");
+  var badNric = nric.length !== 12; setBad("f-nric", badNric); if(badNric) problems.push("a valid 12-digit NRIC");
+  var badMail = !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email); setBad("f-email", badMail); if(badMail) problems.push("a valid email address");
+
+  document.getElementById("c1w").classList.toggle("bad", !c1);
+  document.getElementById("c2w").classList.toggle("bad", !c2);
+  if(!c1 || !c2) problems.push("both declaration tick-boxes");
+
+  var badSig = !signatureInked();
+  box.classList.toggle("bad", badSig);
+  if(badSig) problems.push("your signature in the box");
+
+  return { ok: problems.length === 0, problems: problems,
+           data: { name:name, nric: prettyNric(nric), email:email } };
+}
+
+/* clear a field's error state as soon as the person starts fixing it */
+[["name","f-name"],["nric","f-nric"],["email","f-email"]].forEach(function(p){
+  document.getElementById(p[0]).addEventListener("input", function(){
+    document.getElementById(p[1]).classList.remove("bad");
+  });
+});
+[["c1","c1w"],["c2","c2w"]].forEach(function(p){
+  document.getElementById(p[0]).addEventListener("change", function(){
+    if(this.checked) document.getElementById(p[1]).classList.remove("bad");
+  });
+});
+
+/* reference code — deterministic, non-secret integrity marker */
+function refCode(str){
+  var h1 = 0x811c9dc5, h2 = 0x01000193;
+  for(var i=0;i<str.length;i++){
+    h1 ^= str.charCodeAt(i); h1 = (h1 * 16777619) >>> 0;
+    h2 = ((h2 << 5) + h2 + str.charCodeAt(i)) >>> 0;
+  }
+  var s = (("00000000"+h1.toString(16)).slice(-8) + ("00000000"+h2.toString(16)).slice(-8)).toUpperCase();
+  return s.slice(0,4)+"-"+s.slice(4,8)+"-"+s.slice(8,12)+"-"+s.slice(12,16);
+}
+
+/* ============================================================
+   PDF BUILD
+   ============================================================ */
+var BRAND = [15,122,122], DARK = [18,36,43], INK = [20,36,43], GREY = [96,112,120], WHITE = [255,255,255];
+
+function buildPdf(d){
+  var doc = new MiniPDF.Doc(595.28, 841.89);
+  var W = 595.28, H = 841.89, M = 52, CW = W - M*2;
+  var y = 0, pageNo = 0, pageStarts = [];
+
+  function header(){
+    pageNo++;
+    doc.rect(0, 0, W, 74, {fill: BRAND});
+    doc.text("ENVO BPO SERVICES SDN BHD", M, 30, {size:12.5, bold:true, color:WHITE});
+    doc.text(DOC_TITLE, M, 47, {size:9.5, color:WHITE});
+    doc.text("Ref: " + DOC_REF, M, 60, {size:7.6, color:WHITE});
+    y = 102;
+  }
+  function footer(){
+    doc.text("CONFIDENTIAL - ENVO BPO Services Sdn Bhd", M, H-28, {size:7.5, color:[130,142,148]});
+    doc.text("Page " + pageNo, W-M, H-28, {size:7.5, color:[130,142,148], align:"right"});
+  }
+  function newPage(){ footer(); doc.addPage(); header(); }
+  function space(n){ if(y + n > H - 62) newPage(); }
+
+  function h3(txt){
+    space(36); y += 10;
+    doc.wrap(txt, 10.5, true, CW).forEach(function(l){ space(16); doc.text(l, M, y, {size:10.5, bold:true, color:[10,92,92]}); y += 14; });
+    y += 3;
+  }
+  function para(txt, indent, bullet){
+    indent = indent || 0;
+    doc.wrap(txt, 9.4, false, CW - indent).forEach(function(l,i){
+      space(15);
+      if(bullet && i===0) doc.text("•", M + indent - 11, y, {size:9.4, bold:true, color:INK});
+      doc.text(l, M + indent, y, {size:9.4, color:INK});
+      y += 12.6;
+    });
+    y += 3;
+  }
+  function table(head, rows, wts){
+    var cols = wts.map(function(w){ return CW * w; });
+    var pad = 6, fs = 8.8, lh = fs + 2.6;
+    function cellLines(cells, bold){
+      return cells.map(function(c,i){ return doc.wrap(String(c), fs, bold, cols[i]-pad*2); });
+    }
+    function drawRow(cells, bold){
+      var lines = cellLines(cells, bold);
+      var maxN = Math.max.apply(null, lines.map(function(l){ return l.length; }));
+      var hgt = maxN * lh + pad*2 - 2;
+      if(y + hgt > H - 62){ newPage(); }
+      var x = M;
+      cells.forEach(function(c,i){
+        if(bold) doc.rect(x, y, cols[i], hgt, {fill: DARK, stroke:[190,203,208], lineWidth:0.6});
+        else     doc.rect(x, y, cols[i], hgt, {stroke:[190,203,208], lineWidth:0.6});
+        lines[i].forEach(function(l,k){
+          doc.text(l, x+pad, y + pad + fs + k*lh - 2, {size:fs, bold:bold, color: bold ? WHITE : INK});
+        });
+        x += cols[i];
+      });
+      y += hgt;
+    }
+    y += 5;
+    drawRow(head, true);
+    rows.forEach(function(r){ drawRow(r, false); });
+    y += 9;
+  }
+
+  /* ---------- memo pages ---------- */
+  header();
+  doc.text("MEMO", W/2, y, {size:13, bold:true, align:"center", color:INK}); y += 24;
+
+  MEMO.forEach(function(b){
+    if(b.t==="meta"){
+      var top = y - 10;
+      b.rows.forEach(function(r){
+        space(16);
+        doc.text(r[0]+":", M+12, y, {size:9.4, bold:true, color:INK});
+        doc.text(String(r[1]), M+66, y, {size:9.4, color:INK});
+        y += 14;
+      });
+      doc.line(M+2, top, M+2, y-9, {color:BRAND, lineWidth:2});
+      y += 10;
+    }
+    else if(b.t==="h") h3(b.x);
+    else if(b.t==="p"){ y += 4; para(b.x, 0, false); }
+    else if(b.t==="ul") b.x.forEach(function(i){ para(i, 16, true); });
+    else if(b.t==="table") table(b.head, b.rows, b.w);
+  });
+
+  /* ---------- signature page ---------- */
+  newPage();
+  doc.text("ACKNOWLEDGEMENT & DECLARATION", M, y, {size:13, bold:true, color:[10,92,92]});
+  y += 10;
+  doc.line(M, y, M+CW, y, {color:BRAND, lineWidth:1.4});
+  y += 26;
+
+  function kv(k,v){
+    space(26);
+    doc.text(k, M, y, {size:9.4, bold:true, color:INK});
+    doc.text(String(v), M+152, y, {size:10.4, color:INK});
+    doc.line(M+152, y+5, M+CW, y+5, {color:[215,224,228], lineWidth:0.5});
+    y += 26;
+  }
+  kv("Full Name (per NRIC)", d.name);
+  kv("NRIC Number", d.nric);
+  kv("Email", d.email);
+  kv("Project / Campaign", "KKday");
+  kv("Date of Acknowledgement", d.dateStr);
+
+  y += 10;
+  space(20);
+  doc.text("The signatory declares that:", M, y, {size:9.6, bold:true, color:INK}); y += 18;
+  DECLARATIONS.forEach(function(t){
+    space(26);
+    doc.text("[X]", M, y, {size:10, bold:true, color:[13,138,95]});
+    doc.wrap(t, 9.4, false, CW - 28).forEach(function(l,i){
+      if(i) space(14);
+      doc.text(l, M+26, y, {size:9.4, color:INK});
+      y += 12.6;
+    });
+    y += 8;
+  });
+
+  /* signature image */
+  y += 16;
+  space(160);
+  doc.text("Signature of Employee", M, y, {size:9.4, bold:true, color:INK});
+  y += 10;
+  var sigW = 250;
+  var drawH = Math.min(96, sigW * (d.sigH / d.sigW));
+  doc.image(d.sigJpg, d.sigW, d.sigH, M, y, sigW, drawH);
+  doc.line(M, y + drawH + 4, M + sigW, y + drawH + 4, {color:[140,155,161], lineWidth:0.7});
+  doc.text(d.name, M, y + drawH + 18, {size:8.6, color:GREY});
+  doc.text("Date: " + d.dateStr, M, y + drawH + 30, {size:8.6, color:GREY});
+  y += drawH + 50;
+
+  /* audit block */
+  space(100);
+  doc.rect(M, y, CW, 80, {fill:[240,246,247], stroke:[205,216,220], lineWidth:0.7});
+  doc.text("ELECTRONIC SIGNATURE AUDIT RECORD", M+12, y+17, {size:8.4, bold:true, color:[10,92,92]});
+  doc.text("Reference code:   " + d.ref,        M+12, y+32, {size:7.8, color:[60,76,83]});
+  doc.text("Signed at (local):   " + d.localStamp, M+12, y+44, {size:7.8, color:[60,76,83]});
+  doc.text("Signed at (UTC):   " + d.utcStamp,  M+12, y+56, {size:7.8, color:[60,76,83]});
+  doc.text("Device:   " + String(d.ua).slice(0,105), M+12, y+68, {size:7.8, color:[60,76,83]});
+
+  footer();
+  return doc.build();
+}
+
+/* ============================================================
+   SUBMIT
+   ============================================================ */
+var statusEl = document.getElementById("status");
+function say(kind, html){
+  statusEl.className = "status show " + kind;
+  statusEl.innerHTML = html;
+  try{ statusEl.scrollIntoView({behavior:"smooth", block:"center"}); }catch(e){}
+}
+var LAST = null;
+
+function trimmedSignatureJpeg(){
+  /* crop to the inked area (with margin) so the signature fills the PDF box nicely */
+  var minX=1e9,minY=1e9,maxX=-1e9,maxY=-1e9;
+  strokes.forEach(function(s){ s.forEach(function(p){
+    if(p.x<minX)minX=p.x; if(p.x>maxX)maxX=p.x;
+    if(p.y<minY)minY=p.y; if(p.y>maxY)maxY=p.y;
+  });});
+  var padPx = 14;
+  var cssW = pad.width / dpr, cssH = pad.height / dpr;
+  minX = Math.max(0, minX-padPx); minY = Math.max(0, minY-padPx);
+  maxX = Math.min(cssW, maxX+padPx); maxY = Math.min(cssH, maxY+padPx);
+  var w = Math.max(40, maxX-minX), h = Math.max(20, maxY-minY);
+
+  var out = document.createElement("canvas");
+  var scale = 2.2;
+  out.width  = Math.round(w*scale);
+  out.height = Math.round(h*scale);
+  var octx = out.getContext("2d");
+  octx.fillStyle = "#ffffff";
+  octx.fillRect(0,0,out.width,out.height);
+  octx.drawImage(pad, minX*dpr, minY*dpr, w*dpr, h*dpr, 0, 0, out.width, out.height);
+
+  var url = out.toDataURL("image/jpeg", 0.92);
+  var b64 = url.split(",")[1];
+  return { bin: atob(b64), w: out.width, h: out.height };
+}
+
+document.getElementById("go").onclick = function(){
+  var v = validate();
+  if(!v.ok){
+    say("bad", "<b>Not quite done yet.</b> Please provide: " + v.problems.join(", ") + ".");
+    return;
+  }
+  if(!hasRead){
+    hasRead = true;
+    say("info", "<b>Please scroll through the whole document first</b> (Step 1), then press the button again.");
+    return;
+  }
+
+  var d = v.data;
+  var now      = new Date();
+  d.dateStr    = fmtDate(NOW_D);
+  d.localStamp = now.toString();
+  d.utcStamp   = now.toISOString();
+  d.ua         = navigator.userAgent;
+
+  try{
+    var sig = trimmedSignatureJpeg();
+    d.sigJpg = sig.bin; d.sigW = sig.w; d.sigH = sig.h;
+    d.ref = refCode(d.name + "|" + d.nric + "|" + d.email + "|" + d.utcStamp + "|" + sig.bin.length);
+
+    var bytes = buildPdf(d);
+    var safe  = d.name.replace(/[^A-Za-z0-9]+/g,"_").replace(/^_|_$/g,"").slice(0,40);
+    var file  = "KKday_HouseRules_Acknowledgement_" + safe + "_" + d.utcStamp.slice(0,10) + ".pdf";
+
+    var blob = new Blob([bytes], {type:"application/pdf"});
+    var url  = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = file;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 30000);
+
+    var subj = "KKday House Rules Acknowledgement - " + d.name;
+    var body =
+      "Dear HR,\n\n" +
+      "Please find attached my signed acknowledgement of the KKday House Rules & Operational Regulations.\n\n" +
+      "Name: " + d.name + "\n" +
+      "NRIC: " + d.nric + "\n" +
+      "Date: " + d.dateStr + "\n" +
+      "Reference: " + d.ref + "\n\n" +
+      "*** PLEASE ATTACH THE FILE: " + file + " (in your Downloads folder) BEFORE SENDING ***\n\n" +
+      "Thank you.\n" + d.name;
+
+    /* try to build a File the phone's native Share sheet can hand straight to Mail
+       (feature-detected - not available in every browser, and not available at all
+       when this page is opened as a bare local file rather than a real https:// page) */
+    var canShareFiles = false, pdfFile = null;
+    try{
+      pdfFile = new File([blob], file, {type:"application/pdf"});
+      canShareFiles = !!(navigator.canShare && navigator.canShare({files:[pdfFile]}));
+    }catch(e){ canShareFiles = false; }
+
+    LAST = { file:file, d:d, subj:subj, body:body, pdfFile:pdfFile };
+    document.getElementById("mail").disabled = false;
+    document.getElementById("share").hidden = !canShareFiles;
+
+    var howTo = canShareFiles
+      ? "<li>Tap <b>Share / Send from phone</b> below and pick Mail — the PDF is already attached, just hit send.</li>"
+      : "<li>Click <b>Open email to HR</b> below (or start a new email to <b>" + HR_EMAIL + "</b>) and attach the PDF.</li>";
+    say("ok",
+      "<b>Signed PDF created.</b> Reference <code>" + d.ref + "</code>" +
+      "<ol><li>Check your <b>Downloads</b> folder (or Files app) for <b>" + file + "</b>.</li>" +
+      howTo +
+      "<li>You'll be copied automatically, so a copy lands in your own inbox too.</li></ol>");
+  }catch(err){
+    say("bad", "<b>Something went wrong creating the PDF:</b> " + String(err && err.message || err) +
+               ". Please use <b>Ctrl+P &rarr; Save as PDF</b> instead and email that to HR.");
+  }
+};
+
+document.getElementById("mail").onclick = function(){
+  if(!LAST) return;
+  window.location.href = "mailto:" + encodeURIComponent(HR_EMAIL) +
+    "?cc=" + encodeURIComponent(LAST.d.email) +
+    "&subject=" + encodeURIComponent(LAST.subj) + "&body=" + encodeURIComponent(LAST.body);
+};
+
+document.getElementById("share").onclick = async function(){
+  if(!LAST || !LAST.pdfFile) return;
+  try{
+    await navigator.share({ files:[LAST.pdfFile], title: LAST.subj, text: LAST.body });
+  }catch(err){
+    if(err && err.name === "AbortError") return; /* person cancelled the share sheet - not an error */
+    say("bad", "<b>Could not open the share sheet:</b> " + String(err && err.message || err) +
+               ". Please use <b>Open email to HR</b> instead.");
+  }
+};
+</script>
+</body>
+</html>
